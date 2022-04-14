@@ -40,62 +40,16 @@ int pop(cartas *a);
 int main(){     
 
     int numero;
-    cartas a;
-
-    int *valores;
-    valores = (int*)malloc(numero * sizeof(int));
-
-    a.inicio = 0;
-    a.fim = 0;
-    a.qtd = 0;
 
     do{
-        int i;
         scanf("%d", &numero);
-        valores[i] = numero;
-        i++;
+
+        resolve(numero);
 
     }while(numero != 0);
-
-
-        if(numero < 50){
-            int i;
-            for(i = 1; i <= numero; i++){
-                push(&a, i);
-            }
-        }
-
-        if(numero == 0){
-            return 0;
-        }else{
-            printf("Discarded cards: ");
-            
-                int carta_removida, carta_base;
-
-                do{
-                    carta_removida = pop(&a);
-                    printf(" %d,", carta_removida);
-                    carta_base = pop(&a);
-                    push(&a, carta_base);
-                    
-                }while(a.qtd > 2);
-
-                if(a.qtd = 3){
-                    carta_removida = pop(&a);
-                    printf(" %d\n", carta_removida);
-                }
-
-            printf("Remaining card: %d\n", a.fila[a.inicio]);
-
-            pop(&a);
-        }
     
     return 0;
 }
-
-//Pra alterar a struct que foi declarada o parâmetro das funções push e pop precisa ser o endereço dessa struct
-/*Caso seja a própria struct, uma cópia será criada e nada será incluido ou retirado da struct verdadeira, ocasionando
-a impressão de lixos de memória*/
 
 void push(cartas *a, int numero){
 
@@ -119,9 +73,52 @@ int pop(cartas *a){
     return carta_removida;
 }
 
-/*  int j;
-    for (j = 0; j <= a.qtd; j++){
-        printf("%d, ", a.fila[(j + a.inicio) % TAM]);
+void resolve(int numero){
+
+    cartas a;
+    int carta_removida, carta_base;
+    int i;
+
+    a.fim = 0;
+    a.inicio = 0;
+    a.qtd = 0;
+    
+    for(i = 1; i <= numero; i++){
+        push(&a, i);
     }
-    ESSE FOR MOSTRA TODOS OS ELEMENTOS DENTRO DO VETOR
- */
+
+    if(numero != 0){
+
+        if(numero < 2){
+            carta_removida = pop(&a);
+            printf("Discarded cards: ");
+            printf("\nRemained card: %d\n", carta_removida);
+        }else if(numero <= 50){
+            
+            printf("Discarded cards: ");
+
+                int carta_removida, carta_base;
+
+                do{
+                    carta_removida = pop(&a);
+                    printf(" %d,", carta_removida);
+                    carta_base = pop(&a);
+                    push(&a, carta_base);
+
+                }while(a.qtd > 2);
+
+                if(a.qtd = 3){
+                    carta_removida = pop(&a);
+                    printf(" %d", carta_removida);
+                }
+
+            printf("\nRemaining card: %d\n", a.fila[a.inicio]);
+
+            pop(&a);
+        }
+    }
+}
+
+//Pra alterar a struct que foi declarada o parâmetro das funções push e pop precisa ser o endereço dessa struct
+/*Caso seja a própria struct, uma cópia será criada e nada será incluido ou retirado da struct verdadeira, ocasionando
+a impressão de lixos de memória*/
