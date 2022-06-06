@@ -1,8 +1,0 @@
-void pre_ordem(int * raiz){
-printf("%d", raiz);
-pre_ordem(raiz->esqueda);
-pre_ordem(raiz->direita);
-}
-
-
-inserção - e busca em uma arvore binária
